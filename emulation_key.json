@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "office-time-monitor",
+  "private_key_id": "232a6fa750ea644e807a27ee9c537c022b66be41",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC4R/DJWPCrDfWu\n7qtyANR61Etz4jYrJTDTPLFqh9fnig+23ekUzoMlT0Dl1ztzv84w+ZX8sifWmNh2\nq7Vz6M3+71Pq+8wdWljVkBu3uiIJWUd+5YD8FAL6JsR2ZGfmozzZMH5+KHIHMLxw\n8TFdh/zMZxeClobdXJwCXCrxGyed2AsnuQCyqR9lMZTOxl7+7ghCF9uwa916GJK1\nevHIK60gy30y0CwFl6L27tIT0+M4J1JyuBraePNWkjGroTv0B4a144lfJku1/gjJ\nMD7rdm6kL50AMA7Kp1PCVV6y0d+EKSbdAj00NGeCrM2XZmJHdKwaQz5E7spU0Dup\ngarw71jXAgMBAAECggEAVhNITYwNEiD5nmWd0CjCFsNdoPnLCnkbJrfFOPjNqLls\noKJjkhPp3v33VsQjYWv4cBjMbZV7lTmcdkW7AjJ+MbNxM6O8UgOW1d4zjCxVZJ9+\njS+/AT+JqnV8M76vZ2Pc8qe7lcrnhCNICcsnH0R7GLCYoycTRIdS2alaZ3cjGI76\nFwSxb4bbZJHTPsi2s5M0QmeG0PGlDIKwGrgqEsAVAl0pL7c5GgY9k3yJafl/zalI\neo3y1uvc01N96r1H3PLUyezWAFlvhx2nYeBZtekSyMWA+lz7hNv87tz9P2HlcUz0\nJ96WvWRQ0Y1Xk63UiszC9QXrV2+qVadziQIu3pOR9QKBgQD2VOWaR0S6uJkWnsbR\ne5lrKf9Jc1D7JdXEblEHJdRULYp2gfMXSfcoUxiC76zxXqKSQopDKZaoomqFNOJb\nLJE2HSwBVpBCw2UpVozVABJFGvnXrl49TYBLJ8zd/YbIWnJGNNxOx1afqM5o+liZ\nEHx8BXON+HeuTu0EG23h5jVdzQKBgQC/g5GI1LQN8HZ1JGMCIo9ztrdhW6Nf41KV\n5oUpT3Wta3oqPyRRQ/bA9zSlt72kLZ1nPwpePgSrZMaxDqwXCiq+9qBxLjHGBfoB\n8cO6JpO8q1/HkgFFLY8Nf0ZsMOH+6cS/bJxgwRR42jB5OCxfEFBSa8lCPYd05H4D\nHJy6dHNNMwKBgQClFKAKlFhrCesOTbnQCZT3TF3ZS36p0OFBkuyaba+t+hcg9FWE\n9fy8+XMjzJuJ5nHssssV13kv6iiYvKg1kdh++23SN8DV/Tx+R5J57GJSDZICCMj/\nLEEeHL4exxjcjECo7CP4Z36V4PrzP1LAwVurgbu/GRSbrCkK55bsHOsGwQKBgQCY\nLYe7XqkkWmsGcj9qNuQeYpYc+qA7VXsOOfqd9NHhV4HfiATnvkWY19YxyGscxlJI\n9ELc2BMFzjJEBxCfzihhTb/3r2lFnQIoAWAxzu2eAd89ybrQqX7+jp/64Gz0DfWU\n1kz8ZPBLh7T03boEYAYzOArYY+P68oVfG6E+V8I3GQKBgQCNBFv+/qCTpl0W371Q\n1zQaYX2MZvpyegm+kwk8FDvLA0lc77UznZc1GpoGQLq3LoSjQVNjKJGejbu0lwmI\n5vF2Lbn/piO4wOPlgLpyBQ+Gcs/HoeMhkUjBPMvsu3ya9HrrN0UXLP5mFYdiYUYT\n5DRujEGLkBWCXF08qnSOCz+riA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "office-time-monitor@appspot.gserviceaccount.com",
+  "client_id": "113840879524641832333",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/office-time-monitor%40appspot.gserviceaccount.com"
+}

@@ -1,15 +1,15 @@
 export interface RenderedTime {
-    hours?: number;
     period: string;
-    timeIn?: Date;
-    timeOut?: Date;
+    renderedHours?: number;
+    timeIn: string;
+    timeOut?: string;
 }
 
 export interface TimeMonitoringInfo {
     requiredDays: number;
     offDays: number;
     requiredDailyHours: number;
-    renderedHours: Array<any>;
+    renderedTimes: Array<any>;
     monthlyCutoff: number;
     offsetAllowance: number;
 };

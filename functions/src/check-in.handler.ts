@@ -1,6 +1,7 @@
 import { database } from 'firebase-admin';
 import { Request, Response } from 'firebase-functions';
 import { dateToPeriod, DB_REF } from './app-references';
+import { RenderedTime } from './time-monitor-info.model';
 
 
 /**
@@ -14,7 +15,7 @@ import { dateToPeriod, DB_REF } from './app-references';
  * @param response 
  */
 export const handler = (request: Request, response: Response) => {
-    const dbRenderedHours = database().ref(DB_REF.renderedHours);
+    const dbRenderedHours = database().ref(DB_REF.renderedTimes);
     const CURR_TIME = new Date();
     const optimalTimeout = new Date();
     const currPeriod = dateToPeriod(CURR_TIME);
@@ -22,9 +23,12 @@ export const handler = (request: Request, response: Response) => {
     // Store to DB
     dbRenderedHours.once('value').then(
         (currentValue) =>
-            dbRenderedHours.set([...currentValue.val(), { period: currPeriod }])
+            dbRenderedHours.set([
+                ...currentValue.val(),
+                { period: currPeriod, timeIn: CURR_TIME.toUTCString() } as RenderedTime
+            ])
                 .then(() => response.send(constructResponse(optimalTimeout, 0)))
-    ).catch(() => response.send('error!'));
+    ).catch((error) => response.status(500).json({ message: 'Something went wrong!' }));
 }
 
 export const constructResponse =

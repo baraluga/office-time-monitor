@@ -1,9 +1,12 @@
-import { database } from 'firebase-admin';
 import { Request, Response } from 'firebase-functions';
-import { from } from 'rxjs';
-import { first } from 'rxjs/operators';
-import { dateToPeriod, DB_REF } from './app-references';
-import { RenderedTime } from './time-monitor-info.model';
+import { of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+import { dateToPeriod, DB_REF, ResponseService } from './app-references';
+import {
+    dbRefValue$, updateOffsetAllowance$,
+    updateRenderedTime$
+} from './monitor-info.service';
+import { RenderedTime, TimeMonitoringInfo } from './time-monitor-info.model';
 /**
  * Function to handle the "check-out" of the day. This function should do:
  * 1. Record the current time stamp
@@ -15,18 +18,33 @@ import { RenderedTime } from './time-monitor-info.model';
  * @param response 
  */
 export const handler = (request: Request, resp: Response) => {
+    const respService = new ResponseService(resp);
     const timeOut = new Date();
-    const refRenderedHours = database().ref(DB_REF.renderedTimes);
-    from(refRenderedHours.once('value')).pipe(
-        first()
-    ).subscribe(snapshot => {
-        const renderedHoursByPeriods = [...snapshot.val()]
-            .filter((time: RenderedTime) =>
-                time.period === dateToPeriod(timeOut));
-        const today: RenderedTime = renderedHoursByPeriods[renderedHoursByPeriods.length - 1];
-        const timeDiff = timeOut.getTime() - (new Date(today.timeIn)).getTime();
-        const renderedToday = timeDiff / (1000 * 60 * 60);
-        // Update renderedTime instance
-        resp.send(`You've rendered ${renderedToday} hours today!`)
-    })
+    dbRefValue$(DB_REF.root).pipe(
+        map((monitorInfo: TimeMonitoringInfo) => {
+            const today: RenderedTime = monitorInfo.renderedTimes.find(time =>
+                time.period === dateToPeriod(timeOut))
+            const timeDiff = timeOut.getTime() - (new Date(today.timeIn)).getTime();
+            const renderedToday = timeDiff / (1000 * 60 * 60);
+            const accruedOffset = (monitorInfo.offsetAllowance || 0) +
+                (renderedToday - monitorInfo.requiredDailyHours);
+            return [{
+                ...today, timeOut: timeOut.toUTCString(),
+                renderedHours: renderedToday
+            } as RenderedTime, accruedOffset, monitorInfo.renderedTimes]
+        }),
+        tap(rendered => updateRenderedTime$(rendered[0] as RenderedTime,
+            rendered[2] as any)),
+        tap(rendered => updateOffsetAllowance$(rendered[1] as number)),
+        map(renderedBody => {
+            const renderdTime = renderedBody[0] as RenderedTime;
+            const offsetAllowance = renderedBody[1];
+            return {
+                timeIn: renderdTime.timeIn, timeOut: renderdTime.timeOut,
+                rendered: renderdTime.renderedHours, offset: offsetAllowance
+            }
+        }),
+        catchError(() => of(false))
+    ).subscribe(okResponse => okResponse ? respService.sendOK(okResponse) :
+        respService.sendError());
 }

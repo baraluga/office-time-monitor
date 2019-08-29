@@ -2,16 +2,19 @@ import { Response } from 'firebase-functions';
 
 export const DB_REF = {
     root: '/',
-    monthlyCutoff: '/monthlyCutoff',
-    offDays: '/offDays',
-    offsetAllowance: '/offsetAllowance',
-    renderedTimes: '/renderedTimes',
-    requiredDailyHours: '/requiredDailyHours',
-    requiredDays: '/requiredDays'
+    renderedTimes: '/renderedTimes'
 }
 
+export const REQUIRED_DAILY_HOURS = 8;
+export const REQUIRED_MAN_DAYS = 20;
+
+export const leadZero = (value: any) => String(value).padStart(2, '0')
+
+export const dateToPeriodMonth = (date: Date) =>
+    `${date.getFullYear()}${leadZero(date.getMonth())}`
+
 export const dateToPeriod = (date: Date) =>
-    `${date.getFullYear()}${date.getMonth()}${date.getDate()}`
+    `${dateToPeriodMonth(date)}${leadZero(date.getDate())}`
 
 export const doNothing = () => undefined;
 

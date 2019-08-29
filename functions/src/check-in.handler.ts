@@ -1,7 +1,7 @@
 import { Request, Response } from 'firebase-functions';
 import { combineLatest } from 'rxjs';
-import { DB_REF, ResponseService } from './app-references';
-import { dbRefValue$, onCheckin$ } from './monitor-info.service';
+import { ResponseService } from './app-references';
+import { onCheckin$, totalAccruedOffset$ } from './monitor-info.service';
 
 
 /**
@@ -18,14 +18,15 @@ export const handler = (request: Request, response: Response) => {
     const respService = new ResponseService(response);
     const CURR_TIME = new Date();
     // Store to DB
-    combineLatest(
+    combineLatest([
         onCheckin$(CURR_TIME),
-        dbRefValue$(DB_REF.offsetAllowance)
-    ).subscribe(([successCheckIn, offsetAllowance]) => {
+        totalAccruedOffset$(CURR_TIME),
+    ]).subscribe(([successCheckIn, offsetAllowance]) => {
+        console.log(successCheckIn, offsetAllowance)
         if (!!successCheckIn) {
             respService.sendOK({
                 timeIn: CURR_TIME.toUTCString(),
-                offsetAllowance: offsetAllowance
+                remainingOffset: offsetAllowance
             })
         } else {
             respService.sendError();
